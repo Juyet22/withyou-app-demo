@@ -122,4 +122,12 @@ const Swiper = function(swiper) {
     }
 }
 
+
+// class Swiper {
+//     constructor(swiper) {
+
+//     }
+// }
+
+
 export default Swiper

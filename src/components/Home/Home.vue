@@ -2,12 +2,18 @@
     <div class="home">
         <h2>首页</h2>
         <div class="home-body" ref="homebody">
-            <banner></banner>
+            <Banner></Banner>
+            <QuickEntry             :quickEntryData="quickEntryData">
+
+            </QuickEntry>
             <Floor v-for="floor in homeFloorData" 
                 :key="floor.id" 
-                :title="floor.title"
-                :info="floor.floorInfo"
-                
+                :floorInfo="floor.floorInfo"
+                :floorTitle="floor.title"
+                :moreFlag="floor.moreFlag"
+                :moreTitle="floor.moreTitle"
+                :moreIcon="floor.moreIcon"
+                :floorStyle="floor.floorStyle"
             >
 
             </Floor>
@@ -18,12 +24,14 @@
 <script>
 import Floor from 'common/Floors/Floor'
 import Banner from 'common/Banner/Banner'
+import QuickEntry from './QuickEntry'
 
 export default {
     name: 'Home',
     components: {
         Floor,
-        Banner
+        Banner,
+        QuickEntry
     }
     ,
     data() {
@@ -33,7 +41,10 @@ export default {
                     name: '流量专区',
                     title: '流量专区',
                     id: '1001',
-                    style: {
+                    moreFlag: true,
+                    moreTitle: '更多',
+                    moreIcon: require('static/image/more-icon.jpg'),
+                    floorStyle: {
 
                     },
                     floorInfo: [
@@ -52,15 +63,11 @@ export default {
                                     link: '/shop'
                                 },
                                 {
-                                    mode: 'imglink',
-                                    image: require('static/image/banner/summer.gif'),
-                                    link: '/shop'
-                                },
-                                {
                                     mode: 'customize',
-                                    content: `
-                                        <span style="color:red">2222</span>
-                                    `,
+                                    content: {
+                                        boxTitle: '',
+                                        description: ''
+                                    },
                                     image: require('static/image/banner/banner3.jpg'),
                                     link: '/shop'
                                 }
@@ -68,7 +75,7 @@ export default {
                         },
                         {
                             type: 'scroll',
-                            itemNum: 3,
+                            itemNum: 6,
                             layerInfo: [
                                 {
                                     mode: 'imglink',
@@ -97,10 +104,97 @@ export default {
                                 }
                                 
                             ]
+                        },
+                        {
+                            type: 'grid',
+                            itemNum: 8,
+                            style: {
+                                'grid-template-columns': '1fr 1fr auto',
+                                'grid-template-rows': 'repeat(2,1fr)',
+                                'place-items': 'center center'
+                            },
+                            layerInfo: [
+                                {
+                                    mode: 'imglink',
+                                    image: require('static/image/banner/summer.gif'),
+                                    link: 'https://segmentfault.com/q/1010000013945750',
+                                    itemStyle: {
+                                        'grid-column-start': 1,
+                                        'grid-column-end': 3,
+                                        'grid-row-start': 1,
+                                        'grid-row-end': 3,
+                                    }
+
+                                },
+                                {
+                                    mode: 'imglink',
+                                    image: require('static/image/banner/summer.gif'),
+                                    link: '/shop'
+                                },
+                                {
+                                    mode: 'imglink',
+                                    image: require('static/image/banner/summer.gif'),
+                                    link: '/shop'
+                                },
+                               
+                            ]
+
                         }
                     ]
                 }
                 
+            ],
+            quickEntryData: [
+                {
+                    title: '流量',
+                    icon: require('static/image/banner/qe-icon.jpg'),
+                    poID: 1001,
+                    link: '/shop'
+                },
+                {
+                    title: '流量',
+                    icon: require('static/image/banner/qe-icon.jpg'),
+                    poID: 1002,
+                    link: '/shop'
+                },
+                {
+                    title: '流量',
+                    icon: require('static/image/banner/qe-icon.jpg'),
+                    poID: 1003,
+                    link: '/shop'
+                },
+                {
+                    title: '流量',
+                    icon: require('static/image/banner/qe-icon.jpg'),
+                    poID: 1004,
+                    link: 'https://www.baidu.com'
+                },
+                {
+                    title: '流量',
+                    icon: require('static/image/banner/qe-icon.jpg'),
+                    poID: 1005,
+                    link: 'https://www.baidu.com'
+                },
+                {
+                    title: '流量',
+                    icon: require('static/image/banner/qe-icon.jpg'),
+                    poID: 1006
+                },
+                {
+                    title: '流量',
+                    icon: require('static/image/banner/qe-icon.jpg'),
+                    poID: 1007
+                },
+                {
+                    title: '流量',
+                    icon: require('static/image/banner/qe-icon.jpg'),
+                    poID: 1008
+                },
+                {
+                    title: '流量',
+                    icon: require('static/image/banner/qe-icon.jpg'),
+                    poID: 1009
+                },
             ]
         }
     },
@@ -120,5 +214,6 @@ export default {
     .home-body {
         display: flex;
         flex-direction: column;
+        max-width: 750px;
     }
 </style>

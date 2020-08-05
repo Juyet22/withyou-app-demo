@@ -1,5 +1,5 @@
 <template>
-    <div class="banner">
+    <div class="banner" >
         <div class="swiper">
             <div class="swiper-wrap">
                 <banner-item v-for="banner in bannerList" :path="banner.link" :key="banner.id" class="swiper-wrap-item">
@@ -57,7 +57,7 @@ export default {
     BannerItem
   },
   methods: {
-
+      
   },
   mounted() {
     let _this = this;
