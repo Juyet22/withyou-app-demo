@@ -6,7 +6,7 @@
               <span>
                 {{moreTitle}}
               </span>
-              <img :src="moreIcon" alt="">
+              <i class="el-icon-arrow-right"></i>
             </div>
         </div>
         
@@ -34,7 +34,7 @@ export default {
     floorTitle: String,
     moreFlag: Boolean,
     moreTitle: String,
-    moreIcon: Function,
+    moreIcon: String,
     floorStyle: Object
   },
   data() {
@@ -67,25 +67,25 @@ export default {
 
       font-size: 28px;
       color: grey;
-      padding: 15px 25px;
+      padding: 15px 10px 15px 25px;
       position: relative;
       display: inline-flex;
       justify-content: space-between;
 
       &-more {
-        line-height: 50px;
         max-width: 30%;
-        display: inline-flex;
-        
+        display: inline-block;
+        align-self: center;
 
         span {
-          align-self: center;
-          margin-right: 20px;
+          margin-right: 5px;
+          vertical-align: middle;
+          line-height: 28px;
         }
-        img {
-          align-self: center;
+        i,img {
           width: 28px;
           height: 28px;
+          vertical-align: middle;
         }
       }
 

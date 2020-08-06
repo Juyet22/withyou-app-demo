@@ -17,21 +17,27 @@
             >
 
             </Floor>
+            <div class="bottom"></div>
         </div>
     </div>
 </template>
 
 <script>
+
 import Floor from 'common/Floors/Floor'
 import Banner from 'common/Banner/Banner'
 import QuickEntry from './QuickEntry'
+
 
 export default {
     name: 'Home',
     components: {
         Floor,
         Banner,
-        QuickEntry
+        QuickEntry,
+
+
+
     }
     ,
     data() {
@@ -50,27 +56,27 @@ export default {
                     floorInfo: [
                         {
                             type: 'flex',
-                            itemNum: 3,
+                            itemNum: 2,
                             layerInfo: [
                                 {
                                     mode: 'imglink',
-                                    image: require('static/image/banner/summer.gif'),
+                                    image: require('static/image/llzq-1.png'),
                                     link: 'https://segmentfault.com/q/1010000013945750'
-                                },
-                                {
-                                    mode: 'imglink',
-                                    image: require('static/image/banner/summer.gif'),
-                                    link: '/shop'
                                 },
                                 {
                                     mode: 'customize',
                                     content: {
-                                        boxTitle: '',
-                                        description: ''
+                                        boxTitle: '测试',
+                                        description: '测试测试测试测试测'
                                     },
-                                    image: require('static/image/banner/banner3.jpg'),
+                                    image: require('static/image/qe-icon.jpg'),
                                     link: '/shop'
-                                }
+                                },
+                                {
+                                    mode: 'imglink',
+                                    image: require('static/image/llzq-1.png'),
+                                    link: 'https://segmentfault.com/q/1010000013945750'
+                                },
                             ]
                         },
                         {
@@ -109,14 +115,14 @@ export default {
                             type: 'grid',
                             itemNum: 8,
                             style: {
-                                'grid-template-columns': '1fr 1fr auto',
+                                'grid-template-columns': '1fr 1fr 1.5fr',
                                 'grid-template-rows': 'repeat(2,1fr)',
                                 'place-items': 'center center'
                             },
                             layerInfo: [
                                 {
                                     mode: 'imglink',
-                                    image: require('static/image/banner/summer.gif'),
+                                    image: require('static/image/llzq-large-2.png'),
                                     link: 'https://segmentfault.com/q/1010000013945750',
                                     itemStyle: {
                                         'grid-column-start': 1,
@@ -128,12 +134,12 @@ export default {
                                 },
                                 {
                                     mode: 'imglink',
-                                    image: require('static/image/banner/summer.gif'),
+                                    image: require('static/image/llzq-1.png'),
                                     link: '/shop'
                                 },
                                 {
                                     mode: 'imglink',
-                                    image: require('static/image/banner/summer.gif'),
+                                    image: require('static/image/llzq-1.png'),
                                     link: '/shop'
                                 },
                                
@@ -195,6 +201,19 @@ export default {
                     icon: require('static/image/banner/qe-icon.jpg'),
                     poID: 1009
                 },
+            ],
+
+            headerNavData: [
+                {
+                    name: 'pkg',
+                    link: '/shop',
+                    img: 'static/image/banner/qe-icon.jpg'
+                },
+                {
+                    name: 'pkg',
+                    link: '/shop',
+                    img: 'static/image/banner/qe-icon.jpg'
+                }
             ]
         }
     },
@@ -214,6 +233,8 @@ export default {
     .home-body {
         display: flex;
         flex-direction: column;
-        max-width: 750px;
+    }
+    .bottom {
+        height: 10vh;
     }
 </style>

@@ -1,23 +1,23 @@
 <template>
     <div :class="layerClass" :style="layerStyle" ref="layer" >
-        <div class="floor-layer-box" v-for="(layer,index) in layerInfoFilter" :key="index" @click="$global.linkTo(layer.link)" :style="layer.itemStyle">
+        <router-link class="floor-layer-box" v-for="(layer,index) in layerInfoFilter" :key="index" :to="layer.link"  :style="layerBoxStyle(layer.itemStyle)">
 
             <div v-if="layer.mode == 'imglink'" class="floor-layer-box-img" >
               <img :src="layer.image">
             </div>
 
-            <div v-else v-html="layer.content" class="layer-cmbox">
-              <div class="layercm-box-img">
-                <img :src="layer.image">
-              </div>
+            <div v-else class="layer-cmbox">
+              
               <div class="layer-cmbox-text">
                 <p class="layer-cmbox-title">{{layer.content.boxTitle}}</p>
-                <p class="layer-cmbox-dscrp">{{layer.content.descrption}}</p>
+                <p class="layer-cmbox-dscrp">{{layer.content.description}}</p>
+              </div>
+              <div class="layer-cmbox-img">
+                <img :src="layer.image">
               </div>
               
-              
             </div>
-        </div>
+        </router-link>
     </div>
 </template>
 
@@ -47,10 +47,26 @@ export default {
       if (this.layerInfo) {
         return this.layerInfo.slice(0,this.layerNum);
       }
-    }
+    },
     
   },
   methods: {
+    layerBoxStyle(ls) {
+      let newls = {};
+      let type = this.layerType;
+      if (type === 'flex') {
+        if (ls) {
+          newls = ls;
+          newls['width'] = `calc(100% / ${this.layerNum})`;
+        } else {
+          newls['width'] = `calc(100% / ${this.layerNum})`;
+        }
+      } else {
+        newls = ls ? ls : newls;
+      }
+
+      return newls;
+    }
     
 
     
@@ -87,18 +103,58 @@ export default {
       }
       
     .floor-layer {
-      
       margin: 10px 20px;
+      
 
+      & &-box {
+        margin: 5px;
+        flex-shrink: 1;
+
+
+        .layer-cmbox {
+          display: flex;
+          position: relative;
+          justify-content: space-between;
+          min-width: 250px;
+          
+          &-text {
+            
+            max-width: 200px;
+            margin-top: 20px;
+            
+            p{
+              display: block;
+            }
+            .layer-cmbox-title {
+              font-size: 30px;
+              font-weight: 800;
+              
+            }
+            .layer-cmbox-dscrp {
+              font-size: 20px;
+              margin-top: 10px;
+            }
+          }
+
+          &-img {
+            
+            
+            img {
+              margin-top: 55px;
+              width: 100px;
+            }
+          }
+        }
+      }
 
       // 横排滚动layer样式
       &-scroll {
         overflow-x: auto;
         display: flex;
-        
 
         & .floor-layer-box {
           flex-shrink: 0;
+          max-width: 300px;;
         }
 
       }
@@ -106,36 +162,18 @@ export default {
       // 普通横向陈列layer样式
       &-flex {
         display: flex;
-        justify-content: space-evenly;
-        align-items: center;
+        align-items: flex-start;
       }
       
       // 网格grid layer样式
       &-grid {
         display: grid;
 
-      }
-
-      & &-box {
-        margin: 5px;
-        overflow: hidden;
-        max-width: 250px;
-
-        &-img {
-          display: block;
-          height: 100%;
-
-          img {
-            width: 100%;
-          }
-        }
-
-        .layer-cmbox {
-          display: flex;
-          padding: 15px;
-
-          
+        & .floor-layer-box {
+          max-width: 500px;
         }
       }
+
+      
     }
 </style>

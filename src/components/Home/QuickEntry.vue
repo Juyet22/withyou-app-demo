@@ -41,7 +41,6 @@ export default {
     & &-list {
     display: grid;
     grid-template-columns: repeat(5,minmax(100px,1fr));
-    grid-template-rows: 1fr 1fr;
     justify-items: center;
     
     .quick-entry-box {

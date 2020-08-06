@@ -42,10 +42,15 @@ const router = new VueRouter({
 
 // 前置钩子
 router.beforeEach((to,from,next) => {
-    console.log(to);
     // console.log(from);
-    document.title = to.matched[0].meta.title;
-    next();
+    let reg=/(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?/;
+    if (to.path.match(reg)) {
+        window.location.href = to.path.slice(1)
+    } else {
+        document.title = to.matched[0].meta.title;
+        next();
+    }
+    
 })
 
 export default router;

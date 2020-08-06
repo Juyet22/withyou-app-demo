@@ -10,3 +10,15 @@ img {
     pointer-events: none;
 }
 
+a {
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+a:hover, a:visited, a:link, a:active {
+    color: #000000;
+}
+input {
+    border: none;
+    outline: none;
+}
