@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <router-view @hook:mounted="childmount()">
+    <Header :headerNavData="headerNavData"></Header>
+    <router-view @hook:mounted="childMount()">
         <!-- 匹配到的组件都会缓存 -->
     </router-view>
-    <Header v-if=""></Header>
     <TabBar></TabBar>
     
   </div>
@@ -11,6 +11,7 @@
 
 <script>
 
+import bus from 'components/bus/bus'
 import Header from 'common/Header/Header'
 import Banner from "common/Banner/Banner";
 import TabBar from "common/NavTab/TabBar"
@@ -21,10 +22,21 @@ export default {
     Header,
     TabBar
   },
-  methods: {
-    childmount() {
-      console.log('ccc');
+  data() {
+    return {
+      headerNavData: []
     }
+  },
+  methods: {
+    childMount() {
+      bus.$on("headNavTransfer",(val) => {
+        console.log(val);
+        this.headerNavData = val;
+      })
+    }
+  },
+  created() {
+    
   },
 }
 </script>

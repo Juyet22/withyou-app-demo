@@ -1,15 +1,20 @@
 <template>
     <div class="header-bar"
-        :style="HeaderOpacity"
-        v-show="headerShow"
+        v-if="headerShow"
 
     >
+        <div class="header-bar-bg" :style="HeaderOpacity"></div>
         <div class="header-bar-search">
           <i class="el-icon-search"></i>
           <slot name="search-icon"></slot>
-          <input 
-              class="header-bar-search-input" type="text" 
-          >
+          <div class="header-bar-search-input">
+            <input 
+               type="text"
+               placeholder="请输入搜索内容"
+            >
+          </div>
+            
+          
         </div>
 
         <div class="header-bar-nav">
@@ -19,7 +24,8 @@
               :to="item.link"
               
           >
-            <img :src="require(item.img)" alt="">
+            <img v-if="item.iconType == 'img'" :src="item.img" alt="item.name">
+            <i v-if="item.iconType == 'el'" :class="item.elIcon"></i>
           </router-link>
         </div>
     </div>
@@ -28,10 +34,13 @@
 <script>
 export default {
   name: "Header",
+  props: {
+    headerNavData: Array
+  },
   data() {
     return {
       HeaderOpacity: {
-        opacity: 0.8
+        opacity: 0.2
       },
       headerShow: true
     }
@@ -42,18 +51,22 @@ export default {
   methods: {
     topNavScroll() {
       const top = document.documentElement.scrollTop || document.body.scrollTop || window.pageYOffset;
+      var opacity = 0.2;
 
-      if (top > 60) {
-        let opacity = top / 140
-        if (opacity >= 1) {
-          opacity = 1
-        }
-        this.HeaderOpacity = { opacity }
-        this.headerShow = false
-      } else {
+      if (top > 50 && top < 600) {
+        opacity += top / 200
         this.headerShow = true
+      } else if (top > 600 || top == 600){
+        this.headerShow = false
       }
-    }
+      this.HeaderOpacity = { opacity }
+    } 
+  },
+  computed: {
+    
+  },
+  mounted() {
+    window.addEventListener('scroll',this.topNavScroll)
   },
 }
 </script>
@@ -61,18 +74,26 @@ export default {
 <style lang="scss" scoped>
     .header-bar {
       position: fixed;
-      min-height: 7.5vh;
+      min-height: 8vh;
       top: 0;
       left: 0;
       right: 0;
       z-index: 90;
-      background: linear-gradient(to right,blue,#34b2ec);
+      background: transparent;
       display: flex;
       align-items: center;
-      padding: 0 15px;
+
+      & &-bg {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background: linear-gradient(to right,#1a2bc5,#6cb5e6)
+      }
 
       & &-search {
-        padding: 0 20px;
+        padding: 7px 20px;
+        margin: 20px 15px;
         background: #fff;
         flex: 1;
         display: flex;
@@ -80,27 +101,48 @@ export default {
         border-radius: 12px;
 
         &-input {
-          height: 80%;
-          padding: 0 8px;
-          flex:1;
-          overflow: auto;
           
+          flex:1;
+          position: relative;
+
+          input {
+            padding-left: 12px;
+            overflow: auto;
+            width: 100%;
+          }
+
           &::before {
             content: '';
             position: absolute;
+            top: 0;
             width: 100px;
             height: 100%;
+            border-left: 1px solid #6e6a6a;
           }
+          
         }
 
         i,img{
-          margin-right: 10px;
+          margin-right: 12px;
         }
 
       }
 
       & &-nav {
-        margin-left: 20px;
+        margin-right: 25px;
+        display: flex;
+
+        &-item {
+          flex: 1;
+          position: relative;
+          width: 40px;
+          margin-left: 14px;
+          align-items: center;
+
+          i {
+            font-size: 40px;
+          }
+        }
       }
 
     }

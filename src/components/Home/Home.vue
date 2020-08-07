@@ -1,6 +1,5 @@
 <template>
     <div class="home">
-        <h2>首页</h2>
         <div class="home-body" ref="homebody">
             <Banner></Banner>
             <QuickEntry             :quickEntryData="quickEntryData">
@@ -24,6 +23,7 @@
 
 <script>
 
+import bus from 'components/bus/bus'
 import Floor from 'common/Floors/Floor'
 import Banner from 'common/Banner/Banner'
 import QuickEntry from './QuickEntry'
@@ -207,12 +207,15 @@ export default {
                 {
                     name: 'pkg',
                     link: '/shop',
-                    img: 'static/image/banner/qe-icon.jpg'
+                    iconType: 'img',
+                    img: require('static/image/qe-icon.jpg')
                 },
                 {
-                    name: 'pkg',
+                    name: 'pkg1',
                     link: '/shop',
-                    img: 'static/image/banner/qe-icon.jpg'
+                    iconType: 'el',
+                    img: require('static/image/qe-icon.jpg'),
+                    elIcon: 'el-icon-search'
                 }
             ]
         }
@@ -220,8 +223,11 @@ export default {
     computed: {
         
     },
+    mounted() {
+        bus.$emit("headNavTransfer",this.headerNavData)
+    },
     created() {
-
+        
     },
     activated() {
         
