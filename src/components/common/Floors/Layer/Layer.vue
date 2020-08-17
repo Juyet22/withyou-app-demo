@@ -1,5 +1,5 @@
 <template>
-    <div :class="layerClass" :style="layerStyle" ref="layer" >
+    <div :class="layerClass" :style="layerStyle" ref="layer">
         <router-link class="floor-layer-box" v-for="(layer,index) in layerInfoFilter" :key="index" :to="layer.link"  :style="layerBoxStyle(layer.itemStyle)">
 
             <div v-if="layer.mode == 'imglink'" class="floor-layer-box-img" >
@@ -66,50 +66,30 @@ export default {
       }
 
       return newls;
-    }
+    },
+
+
     
 
     
   },
   mounted() {
-    function mouseWheel(e) {
+    
 
-      var firefox = navigator.userAgent.indexOf('Firefox') != -1;
-      e = e || window.event;
-      
-      if (e.stopPropagation) {
-        e.stopPropagation();
-      } else {
-        e.cancelBubble=true;
-      }
-      
-      if (e.preventDefault) {
-        e.preventDefault();
-      } else {
-        e.returnValue=false;
-      }
-
-    }
-
-    this.$refs.layer.addEventListener('scroll',mouseWheel,{passive: false})
   },
 }
 </script>
 
 <style lang="scss" scoped>
 
-    ::-webkit-scrollbar {
-        display: none;
-      }
-      
+     
     .floor-layer {
       margin: 10px 20px;
-      
 
       & &-box {
         margin: 5px;
         flex-shrink: 1;
-
+        pointer-events: none;
 
         .layer-cmbox {
           display: flex;
@@ -120,11 +100,8 @@ export default {
           &-text {
             
             max-width: 200px;
-            margin-top: 20px;
+            margin-top: 8%;
             
-            p{
-              display: block;
-            }
             .layer-cmbox-title {
               font-size: 30px;
               font-weight: 800;
@@ -138,18 +115,19 @@ export default {
 
           &-img {
             
-            
             img {
               margin-top: 55px;
               width: 100px;
             }
           }
+          
         }
+        
       }
 
       // 横排滚动layer样式
       &-scroll {
-        overflow-x: auto;
+        overflow-x: scroll;
         display: flex;
 
         & .floor-layer-box {
@@ -163,6 +141,7 @@ export default {
       &-flex {
         display: flex;
         align-items: flex-start;
+        justify-content: space-evenly;
       }
       
       // 网格grid layer样式

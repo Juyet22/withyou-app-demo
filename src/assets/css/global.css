@@ -1,24 +1,59 @@
 * {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  box-sizing: border-box;
 }
 
 img {
-    width: 100%;
-    pointer-events: none;
+  width: 100%;
+  pointer-events: none;
 }
 
 a {
-    text-decoration: none;
-    -webkit-tap-highlight-color: transparent;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
-a:hover, a:visited, a:link, a:active {
-    color: #000000;
+a:hover,
+a:visited,
+a:link,
+a:active {
+  color: #000000;
 }
 input {
-    border: none;
-    outline: none;
+  border: none;
+  outline: none;
+}
+
+.main-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.normal-box {
+  width: 95%;
+  margin: 30px auto;
+  border: 2px solid rgb(199, 195, 191);
+  border-radius: 20px;
+  box-shadow: 0 0 15px #7dcbc2;
+}
+
+/* 过渡 */
+
+/* 滚轮样式 */
+::-webkit-scrollbar {
+  width: 6px;
+  border-radius: 5px;
+  height: 6px;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: #bfbfbf;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 5px;
+  background: #e5e5e5;
 }

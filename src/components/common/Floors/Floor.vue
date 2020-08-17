@@ -1,10 +1,10 @@
 <template>
-    <div class="floor" :style="floorStyle">
+    <div class="floor normal-box" :style="floorData.floorStyle">
         <div class="floor-title">
-            <p class="floor-title-text">{{floorTitle}}</p>
-            <div v-show="moreFlag" class="floor-title-more">
+            <p class="floor-title-text">{{floorData.floorTitle}}</p>
+            <div v-show="floorData.moreFlag" class="floor-title-more">
               <span>
-                {{moreTitle}}
+                {{floorData.moreTitle}}
               </span>
               <i class="el-icon-arrow-right"></i>
             </div>
@@ -12,10 +12,10 @@
         
         <!-- 每一列 Layer -->
 
-        <Layer v-for="(layer,index) in floorInfo" 
+        <Layer v-for="(layer,index) in floorData.floorInfo" 
               :key="index" 
               :layerType="layer.type" 
-              :layerStyle="layer.style"
+              :layerStyle="layer.layerStyle"
               :layerNum="layer.itemNum"
               :layerInfo="layer.layerInfo"
 
@@ -30,12 +30,13 @@ import Layer from './Layer/Layer'
 export default {
   name: "Floor",
   props: {
-    floorInfo: Array,
-    floorTitle: String,
-    moreFlag: Boolean,
-    moreTitle: String,
-    moreIcon: String,
-    floorStyle: Object
+    floorData: Object,
+    // floorInfo: Array,
+    // floorTitle: String,
+    // moreFlag: Boolean,
+    // moreTitle: String,
+    // moreIcon: String,
+    // floorStyle: Object
   },
   data() {
     return {
@@ -59,15 +60,13 @@ export default {
     display: flex;
     flex-direction: column;
     flex: 1;
-    width: 95%;
-    margin: 30px auto;
-    border: 2px solid orange;
     
+
     &-title {
 
       font-size: 28px;
       color: grey;
-      padding: 15px 10px 15px 25px;
+      padding: 20px 10px 15px 25px;
       position: relative;
       display: inline-flex;
       justify-content: space-between;
@@ -90,7 +89,6 @@ export default {
       }
 
       &-text {
-        font-size: 1.3em;
         font-weight: 600;
         line-height: 50px;
         position: relative;
@@ -98,12 +96,12 @@ export default {
       }
 
       &::after {
-          content: "";
-          position: absolute;
-          width: 94%;
-          height: 85%;
-          border-bottom: 1px solid #000;
-        }
+        content: "";
+        position: absolute;
+        width: 94%;
+        height: 85%;
+        border-bottom: 1px solid #000;
+      }
     }
 
 

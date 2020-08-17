@@ -1,42 +1,48 @@
 <template>
   <div id="app">
-    <Header :headerNavData="headerNavData"></Header>
-    <router-view @hook:mounted="childMount()">
-        <!-- 匹配到的组件都会缓存 -->
+    <div :is="headerType"
+         :headerNavData="headerNavData"></div>
+    <router-view>
+      <!-- 匹配到的组件都会缓存 -->
     </router-view>
+
     <TabBar></TabBar>
-    
+
   </div>
 </template>
 
 <script>
 
 import bus from 'components/bus/bus'
-import Header from 'common/Header/Header'
+import HeaderSearch from 'common/Header/HeaderSearch'
+import HeaderTitle from 'common/Header/HeaderTitle'
 import Banner from "common/Banner/Banner";
 import TabBar from "common/NavTab/TabBar"
 
 export default {
   name: 'App',
   components: {
-    Header,
+    HeaderSearch,
+    HeaderTitle,
     TabBar
   },
-  data() {
+  data () {
     return {
-      headerNavData: []
+      headerNavData: [],
+      headerType: ''
     }
   },
   methods: {
-    childMount() {
-      bus.$on("headNavTransfer",(val) => {
-        console.log(val);
-        this.headerNavData = val;
-      })
+    childMount () {
+
     }
   },
-  created() {
-    
+  created () {
+    bus.$on("headNavTransfer", (val) => {
+      // console.log(val);
+      this.headerNavData = val.navData;
+      this.headerType = val.type;
+    })
   },
 }
 </script>
