@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <div :is="headerType"
+    <div v-if="headerShow"
+         :is="headerType"
          :headerNavData="headerNavData"></div>
     <router-view>
       <!-- 匹配到的组件都会缓存 -->
@@ -29,7 +30,8 @@ export default {
   data () {
     return {
       headerNavData: [],
-      headerType: ''
+      headerType: '',
+      headerShow: this.$store.state.headerShow
     }
   },
   methods: {

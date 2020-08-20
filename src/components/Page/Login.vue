@@ -1,11 +1,13 @@
 <template>
+  <div class="login">
 
+  </div>
 </template>
 
 <script>
 export default {
   name: "",
-  data() {
+  data () {
     return {
 
     }
@@ -17,5 +19,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

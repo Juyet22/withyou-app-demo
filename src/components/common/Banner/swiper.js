@@ -32,7 +32,6 @@ const Swiper = function(swiper) {
   this.touchEndHandle = (e) => {
     let dx = e.changedTouches[0].clientX - this.touchStartX
     let timeGap = Date.now() - this.touchStartTime
-    console.log(dx, timeGap)
     if (
       Math.abs(dx) > this.swiperItemWidth / 3 ||
       (timeGap < 300 && Math.abs(dx) > 30)
@@ -55,24 +54,24 @@ const Swiper = function(swiper) {
       }, 2500)
     }
   }
-  ;(this.setPagPoints = function() {
+  this.setPagPoints = function() {
     const swiperPagPotints = this.swiperPag.querySelectorAll('li')
     for (var i = 0; i < swiperPagPotints.length; i++) {
       swiperPagPotints[i].classList.remove('active')
     }
     swiperPagPotints[this.indexObj.current].classList.add('active')
-  }),
-    (this.swiperMoveNext = () => {
-      this.indexObj.left = this.indexObj.current
-      this.indexObj.current = this.indexObj.right
-      this.indexObj.right++
-      if (this.indexObj.right > this.swiperItems.length - 1) {
-        this.indexObj.right = 0
-      }
-      this.setTransition(1, 1, 0)
-      this.setTransform()
-      this.setPagPoints()
-    })
+  }
+  this.swiperMoveNext = () => {
+    this.indexObj.left = this.indexObj.current
+    this.indexObj.current = this.indexObj.right
+    this.indexObj.right++
+    if (this.indexObj.right > this.swiperItems.length - 1) {
+      this.indexObj.right = 0
+    }
+    this.setTransition(1, 1, 0)
+    this.setTransform()
+    this.setPagPoints()
+  }
   this.swiperMovePrev = function() {
     this.indexObj.right = this.indexObj.current
     this.indexObj.current = this.indexObj.left
@@ -80,8 +79,8 @@ const Swiper = function(swiper) {
     if (this.indexObj.left < 0) {
       this.indexObj.left = this.swiperItems.length - 1
     }
-    this.setTransition(0, 1, 1)
     this.setTransform()
+    this.setTransition(0, 1, 1)
     this.setPagPoints()
   }
   this.swiperStart = function() {

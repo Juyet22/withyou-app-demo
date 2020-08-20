@@ -16,7 +16,7 @@ Vue.use(VueRouter)
 const Home = () => import('components/Home/Home')
 const Shop = () => import('components/Shop/Shop')
 const Login = () => import('components/Page/Login')
-const Good = () => import('components/Shop/Good')
+const Good = () => import('components/Shop/Good.vue')
 
 const routes = [
   {
@@ -45,7 +45,7 @@ const routes = [
     children: [],
   },
   {
-    path: '/goods?gid=:gid',
+    path: '/goods',
     name: 'good',
     component: Good,
     meta: {

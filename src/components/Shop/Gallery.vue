@@ -37,12 +37,12 @@
                      :key="good.id"
                      :to="{
                        name: 'good',
-                       params:{gid: good.goodId}
+                       query:{gId: good.goodId}
                       }"
                      tag="li">
           <div class="goods-box">
             <div class="goods-box-image">
-              <img :src="good.img"
+              <img :src="good.image"
                    alt="">
             </div>
 
@@ -69,7 +69,8 @@
 export default {
   name: "Gallery",
   props: {
-    galleryData: Object
+    galleryData: Object,
+    goodsData: Array
   },
   data () {
     return {
@@ -83,10 +84,9 @@ export default {
   },
   computed: {
     goodsListShow () {
-      let goodsData = this.galleryData.goodsData;
-      let goodsShow = goodsData.filter(item => item.goodsType == this.goodsShowType)[0]
+      let goodsShow = this.$store.state.goodsData.filter(item => item.goodsType == this.goodsShowType)
 
-      return goodsShow.goodsList;
+      return goodsShow;
     }
   },
   methods: {
@@ -95,6 +95,8 @@ export default {
       this.navIndex = index;
       this.goodsShowType = type;
     }
+  },
+  mounted () {
   },
 }
 </script>

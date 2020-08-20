@@ -140,44 +140,8 @@ export default {
             goodsType: 'smart'
           }
         ],
-        goodsData: [
-          {
-            goodsType: 'smartphone',
-            goodsList: [
-              {
-                name: 'iphone',
-                goodId: '18723',
-                img: require('static/image/more-icon.jpg'),
-                link: 'https://segmentfault.com/q/1010000013945750',
-                brand: 'iphone'
-              },
-              {
-                name: 'iphone',
-                goodId: '18724',
-                img: require('static/image/more-icon.jpg'),
-                link: 'https://segmentfault.com/q/1010000013945750',
-                brand: 'iphone'
-              },
-              {
-                name: 'iphone',
-                goodId: '18725',
-                img: require('static/image/more-icon.jpg'),
-                link: '/home',
-                brand: 'iphone'
-              }
-            ]
-          },
-          {
-            goodsType: 'smartwatch',
-            goodsList: [
-              {
-                name: '',
-                img: ''
-              }
-            ]
-          }
-        ]
-      }
+      },
+
     }
   },
   methods: {
@@ -185,6 +149,7 @@ export default {
   },
   mounted () {
     bus.$emit("headNavTransfer", this.shopHeaderData)
+
   },
 }
 </script>
