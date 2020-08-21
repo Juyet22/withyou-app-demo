@@ -30,8 +30,8 @@ export default {
   data () {
     return {
       headerNavData: [],
-      headerType: '',
-      headerShow: this.$store.state.headerShow
+      headerShow: this.$store.state.headerShow,
+      headerType: this.$store.state.headerType
     }
   },
   methods: {
@@ -39,11 +39,15 @@ export default {
 
     }
   },
-  created () {
+  beforeCreate () {
+
     bus.$on("headNavTransfer", (val) => {
       // console.log(val);
       this.headerNavData = val.navData;
-      this.headerType = val.type;
+    })
+    this.$store.dispatch('GET_headerType', {
+      headerType: 'HeaderSearch',
+      headerShow: true
     })
   },
 }

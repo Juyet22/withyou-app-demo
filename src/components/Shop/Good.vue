@@ -1,18 +1,27 @@
 <template>
   <div class="good">
-    <div class="good-image">
-      <img :src="goodInfo.image"
-           alt="">
+
+    <div class="good-content"
+         v-if="this.goodInfo">
+      <div class="good-image">
+        <img :src="goodInfo.image"
+             alt="">
+      </div>
+
+      <div class="good-info">
+
+        {{goodInfo.saleWords}}
+      </div>
+
+      <div class="good-purchase">
+
+      </div>
     </div>
 
-    <div class="good-info">
-
-      {{goodInfo.saleWords}}
+    <div v-else>
+      nono
     </div>
 
-    <div class="good-purchase">
-
-    </div>
   </div>
 </template>
 

@@ -18,7 +18,7 @@ export default {
   // nodata:[], //角色所属系统下面未勾选的菜单
   // view:'',
   headerShow: false,
-  headerType: 'HeaderSearch',
+  headerType: '',
   goodsData: [
     {
       name: 'iphone',
