@@ -1,14 +1,14 @@
 <template>
   <div id="app">
-    <div v-if="headerShow"
-         :is="headerType"
+    <div v-if="this.$store.state.headerShow"
+         :is="this.$store.state.headerType"
          :headerNavData="headerNavData"></div>
     <router-view>
       <!-- 匹配到的组件都会缓存 -->
     </router-view>
 
     <TabBar></TabBar>
-
+    <div style="margin-top: 80px;"></div>
   </div>
 </template>
 
@@ -17,7 +17,6 @@
 import bus from 'components/bus/bus'
 import HeaderSearch from 'common/Header/HeaderSearch'
 import HeaderTitle from 'common/Header/HeaderTitle'
-import Banner from "common/Banner/Banner";
 import TabBar from "common/NavTab/TabBar"
 
 export default {
@@ -30,8 +29,6 @@ export default {
   data () {
     return {
       headerNavData: [],
-      headerShow: this.$store.state.headerShow,
-      headerType: this.$store.state.headerType
     }
   },
   methods: {
@@ -39,16 +36,16 @@ export default {
 
     }
   },
+  mounted () {
+
+  },
   beforeCreate () {
 
     bus.$on("headNavTransfer", (val) => {
       // console.log(val);
       this.headerNavData = val.navData;
     })
-    this.$store.dispatch('GET_headerType', {
-      headerType: 'HeaderSearch',
-      headerShow: true
-    })
+
   },
 }
 </script>
@@ -58,5 +55,6 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 }
 </style>

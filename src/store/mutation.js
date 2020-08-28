@@ -1,5 +1,5 @@
 export default {
-  GET_headerType: (state, payload) => {
+  GET_HEADERTYPE: (state, payload) => {
     state.headerType = payload.headerType
     state.headerShow = payload.headerShow
   },

@@ -1,6 +1,6 @@
 export default {
-  GET_headerType: ({ state, commit }, payload) => {
-    commit('GET_headerType', payload)
+  GET_HEADERTYPE: ({ state, commit }, payload) => {
+    commit('GET_HEADERTYPE', payload)
   },
   GET_ID: ({ state, commit }, payload) => {
     commit('GET_ID', payload)

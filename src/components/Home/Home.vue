@@ -249,12 +249,21 @@ export default {
   },
   mounted () {
     bus.$emit("headNavTransfer", this.homeHeaderData)
+    this.$store.dispatch('GET_HEADERTYPE', {
+      headerType: 'HeaderSearch',
+      headerShow: true
+    })
   },
   created () {
 
   },
   activated () {
 
+  },
+  destroyed () {
+    this.$store.dispatch('GET_HEADERTYPE', {
+      headerShow: false
+    })
   },
 }
 </script>
