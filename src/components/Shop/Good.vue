@@ -2,16 +2,14 @@
   <div class="good">
 
     <div class="good-content"
-         v-if="this.goodInfo">
+         v-if="goodInfo">
       <div class="good-image">
         <div class="good-image-swiper">
           <div class="good-image-box"
+               v-for="(image,index) in goodInfo.imageList"
+               :key="index"
                :style="goodImageStyle">
-            <img :src="goodInfo.image">
-          </div>
-          <div class="good-image-box"
-               :style="goodImageStyle">
-            <img :src="goodInfo.image">
+            <img :src="image">
           </div>
         </div>
 
@@ -28,25 +26,48 @@
 
       <div class="good-info">
         <div class="good-dscrp">
-          <h2 class="good-dscrp-title">
-
-          </h2>
-          <p>
-
+          <h3 class="good-dscrp-title">
+            {{goodInfo.name}}
+          </h3>
+          <p class="good-dscrp-saleword">
+            {{goodInfo.saleWord}}
           </p>
-          <p>
-            <span>¥xxx</span>
+          <p class="good-dscrp-saleinfo">
+            <span class="good-dscrp-price">¥{{goodInfo.price}}</span>
+            <span class="good-dscrp-saleway">{{goodInfo.saleWay}}</span>
           </p>
 
         </div>
 
+        <div class="good-delivery">
+          <div class="good-delivery-area">
+            <span>配送地区</span>
+            <span class="good-delivery-area-text">{{goodInfo.delivery.area}}</span>
+          </div>
+        </div>
+
+        <div class="good-chosen">
+          <div class="good-chosen-info">
+            <span>已选信息</span>
+            <span class="good-chosen-info-text">
+              {{goodInfo.color}} {{goodInfo.memory}}+{{goodInfo.storage}} 1个
+
+            </span>
+          </div>
+        </div>
+
         <div class="good-detail">
           <ul class="good-detail-tab">
-            <li>商品介绍</li>
+            <li>
+              <span class="nav-underline"></span>
+              商品介绍
+            </li>
             <li>规格参数</li>
             <li>售后规范</li>
           </ul>
+          <div class="good-detail-content">
 
+          </div>
         </div>
 
       </div>
@@ -76,7 +97,12 @@ export default {
       goodImageStyle: {
         'transform': `translateX()`
       },
-      goodImageIndex: 0
+      goodImageIndex: 0,
+      goodDetailNav: [
+        '商品介绍',
+        '规格参数',
+        '售后规范',
+      ]
     }
   },
   components: {
@@ -131,6 +157,10 @@ export default {
         overflow: auto;
         display: flex;
 
+        &::-webkit-scrollbar {
+          display: none;
+        }
+
         .good-image-box {
           width: 100%;
           flex-shrink: 0;
@@ -166,7 +196,92 @@ export default {
     }
 
     .good-info {
-      text-align: center;
+      .good-dscrp {
+        display: flex;
+        flex-direction: column;
+        padding: 20px 18px;
+
+        &-title {
+        }
+
+        &-saleword {
+          color: #aca5a5;
+        }
+
+        &-saleinfo {
+          display: flex;
+          margin-top: 10px;
+
+          .good-dscrp-price {
+            color: #e95426;
+            font-size: 1.4em;
+          }
+          .good-dscrp-saleway {
+            margin-left: 8px;
+            align-self: center;
+          }
+        }
+      }
+
+      .good-delivery {
+        padding: 20px 18px;
+        border-bottom: #aca5a5 1px solid;
+
+        &-area {
+          color: #aca5a5;
+          display: grid;
+          grid-template-columns: 25% 75%;
+          justify-items: start;
+
+          &-text {
+            color: #000000;
+          }
+        }
+      }
+
+      .good-chosen {
+        padding: 20px 18px;
+
+        &-info {
+          color: #aca5a5;
+          display: grid;
+          grid-template-columns: 25% 75%;
+          justify-items: start;
+
+          &-text {
+            color: #000000;
+          }
+        }
+      }
+
+      .good-detail {
+        margin-top: 12px;
+        border-top: #aca5a5 2px solid;
+
+        &-tab {
+          display: flex;
+          text-align: center;
+
+          li {
+            flex: 1;
+            position: relative;
+            padding: 20px;
+
+            &:first-child {
+              .nav-underline {
+                position: absolute;
+                content: "";
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 95%;
+                border-bottom: 3px solid #4453d4;
+                transition: all 0.4s ease;
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

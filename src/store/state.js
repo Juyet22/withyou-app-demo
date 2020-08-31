@@ -17,17 +17,29 @@ export default {
   // tags:[],
   // nodata:[], //角色所属系统下面未勾选的菜单
   // view:'',
+  tabBarShow: false,
   headerShow: false,
   headerType: '',
   goodsData: [
     {
-      name: 'iphone',
+      name: 'iphoneX 16+256GB',
       goodsType: 'smartphone',
       goodId: '18723',
-      saleWords: '112233',
-      image: require('static/image/more-icon.jpg'),
+      saleWord: '侧边指纹，双曲面玻璃机身',
+      saleWay: '无需预存',
+      imageList: [
+        require('static/image/more-icon.jpg'),
+        require('static/image/more-icon.jpg'),
+      ],
       link: 'https://segmentfault.com/q/1010000013945750',
       brand: 'iphone',
+      price: '2099',
+      color: '绿色',
+      memory: '16G',
+      storage: '256G',
+      delivery: {
+        area: '仅限上海',
+      },
     },
     {
       name: 'iphone',

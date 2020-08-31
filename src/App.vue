@@ -7,7 +7,7 @@
       <!-- 匹配到的组件都会缓存 -->
     </router-view>
 
-    <TabBar></TabBar>
+    <TabBar v-if="this.$store.state.tabBarShow"></TabBar>
     <div style="margin-top: 80px;"></div>
   </div>
 </template>

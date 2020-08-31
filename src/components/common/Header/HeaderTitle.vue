@@ -6,8 +6,8 @@
 
     <div class="header-back"
          @click="routerBack">
+      <i class="el-icon-arrow-left"></i>
       <span>返回</span>
-      <i class="el-icon-arrow-right"></i>
     </div>
   </div>
 </template>
@@ -48,7 +48,7 @@ export default {
 
   &-back {
     position: absolute;
-    right: 0;
+    left: 0;
     top: 0;
     bottom: 0;
     display: flex;

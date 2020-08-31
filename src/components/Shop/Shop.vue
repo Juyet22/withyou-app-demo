@@ -151,7 +151,8 @@ export default {
     bus.$emit("headNavTransfer", this.shopHeaderData)
     this.$store.dispatch('GET_HEADERTYPE', {
       headerType: 'HeaderSearch',
-      headerShow: true
+      headerShow: true,
+      tabBarShow: true
     })
 
   },

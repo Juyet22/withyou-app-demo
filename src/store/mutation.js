@@ -2,6 +2,7 @@ export default {
   GET_HEADERTYPE: (state, payload) => {
     state.headerType = payload.headerType
     state.headerShow = payload.headerShow
+    state.tabBarShow = payload.tabBarShow
   },
   GET_ID: (state, payload) => {
     state.menuIds = payload
