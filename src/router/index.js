@@ -28,6 +28,9 @@ const routes = [
   {
     path: '/login',
     component: Login,
+    meta: {
+      title: '用户登录',
+    },
   },
   {
     path: '/home',

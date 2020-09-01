@@ -23,10 +23,14 @@ a:active {
   color: #000000;
 }
 input {
+  font-size: 26px;
   border: none;
   outline: none;
 }
-
+button {
+  outline: none;
+  border: none;
+}
 .main-body {
   display: flex;
   flex-direction: column;
