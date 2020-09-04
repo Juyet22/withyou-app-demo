@@ -1,35 +1,51 @@
 <template>
   <div class="normal-box login-box">
     <div class="login-title">
-      <img src="~static/image/qe-icon.jpg"
+      <img src=""
            alt="">
-      <p>上海移动和你</p>
+      <p>XXXXX</p>
 
     </div>
-    <form class="login-form"
-          ref="loginform"
-          :model="loginForm">
+    <div class="login-way">
+      <a :class="{selected: loginWay == 'pwd'}"
+         @click="loginWay = 'pwd'">服务密码登陆</a>
+      <a :class="{selected: loginWay == 'msg'}"
+         @click="loginWay = 'msg'">短信验证码登陆</a>
+    </div>
+    <section class="login-form"
+             ref="loginForm">
       <div class="login-form-user login-form-row">
         <!-- <label for="">手机号</label> -->
-        <input class="login-user login-input"
+        <input type="text"
+               class="login-user login-input"
                placeholder="请输入手机号"
-               :model="loginForm.phoneNumber">
+               v-model="phoneNumber"
+               maxlength="20">
       </div>
-      <div class="login-form-pwd login-form-row">
+      <div v-if="loginWay == 'pwd'"
+           class="login-form-pwd login-form-row">
         <!-- <label for="">密码</label> -->
-        <input class="login-pwd login-input">
+        <input class="login-pwd login-input"
+               placeholder="请输入服务密码">
       </div>
 
-      <div class="login-form-verify login-form-row">
+      <div v-if="loginWay == 'msg'"
+           class="login-form-verify login-form-row">
         <!-- <label for="">验证码</label> -->
-        <input class="login-verify login-input">
-        <button class="login-verify-btn"></button>
+        <input class="login-verify login-input"
+               placeholder="请输入验证码"
+               v-model="verificationCode">
+        <button class="login-verify-btn"
+                @click="getCode()"
+                :disabled="getCodeBtnDisable">
+          {{codeBtnWord}}
+        </button>
       </div>
 
       <div class="login-form-btn ">
         <button class="login-submit">登录</button>
       </div>
-    </form>
+    </section>
   </div>
 </template>
 
@@ -38,10 +54,10 @@ export default {
   name: "",
   data () {
     return {
-      loginForm: {
-        phoneNumber: '',
-        verificationCode: '',
-      },
+      loginWay: 'msg',
+      phoneNumber: '',
+      verificationCode: '',
+      password: '',
       codeBtnWord: '获取验证码', // 获取验证码按钮文字
       waitTime: 61, // 获取验证码按钮失效时间
     }
@@ -50,10 +66,10 @@ export default {
 
   },
   computed: {
-    // 用于校验手机号码格式是否正确
+    // 校验手机号码格式
     phoneNumberStyle () {
       let reg = /^1[3456789]\d{9}$/
-      if (!reg.test(this.loginForm.phoneNumber)) {
+      if (!reg.test(this.phoneNumber)) {
         return false
       }
       return true
@@ -62,7 +78,7 @@ export default {
     getCodeBtnDisable: {
       get () {
         if (this.waitTime == 61) {
-          if (this.loginForm.phoneNumber) {
+          if (this.phoneNumber) {
             return false
           }
           return true
@@ -75,37 +91,48 @@ export default {
   },
   methods: {
     getCode () {
+      console.log(this.phoneNumber);
       if (this.phoneNumberStyle) {
         let params = {}
-        params.phone = this.loginForm.phoneNumber
+        params.phone = this.phoneNumber
         // 调用获取短信验证码接口
-        axios.post('/sendMessage', params).then(res => {
-          res = res.data
-          if (res.status == 200) {
-            this.$message({
-              message: '验证码已发送，请稍候...',
-              type: 'success',
-              center: true
-            })
-          }
-        })
-        // 因为下面用到了定时器，需要保存this指向
-        let that = this
-        that.waitTime--
-        that.getCodeBtnDisable = true
+        // axios.post('/sendMessage', params).then(res => {
+        //   res = res.data
+        //   if (res.status == 200) {
+        //     this.$message({
+        //       message: '验证码已发送，请稍候...',
+        //       type: 'success',
+        //       center: true
+        //     })
+        //   }
+        // })
+        // 定时器
+        let _this = this
+        _this.waitTime--
+        _this.getCodeBtnDisable = true
         this.codeBtnWord = `${this.waitTime}s 后重新获取`
         let timer = setInterval(function () {
-          if (that.waitTime > 1) {
-            that.waitTime--
-            that.codeBtnWord = `${that.waitTime}s 后重新获取`
+          if (_this.waitTime > 1) {
+            _this.waitTime--
+            _this.codeBtnWord = `${_this.waitTime}s 后重新获取`
           } else {
             clearInterval(timer)
-            that.codeBtnWord = '获取验证码'
-            that.getCodeBtnDisable = false
-            that.waitTime = 61
+            _this.codeBtnWord = '获取验证码'
+            _this.getCodeBtnDisable = false
+            _this.waitTime = 61
           }
         }, 1000)
+
+      } else {
+        this.$message({
+          message: 'error',
+          type: 'error',
+          center: true
+        })
       }
+    },
+    loginSubmit () {
+
     }
   },
   mounted () {
@@ -114,6 +141,11 @@ export default {
       headerShow: true
     })
   },
+  directives: {
+    rules: {
+
+    }
+  }
 }
 </script>
 
@@ -132,6 +164,20 @@ export default {
 
     img {
       width: 120px;
+    }
+  }
+  .login-way {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 35px;
+    font-size: 32px;
+
+    a {
+      color: #cccccc;
+
+      &.selected {
+        color: blue;
+      }
     }
   }
   .login-form {
@@ -162,13 +208,13 @@ export default {
     &-btn {
       width: 95%;
       margin: 25px auto;
-      font-size: 1.2em;
 
       button {
+        font-size: 32px;
+        letter-spacing: 2px;
         color: #ffffff;
         width: 100%;
-        height: 45px;
-
+        height: 58px;
         background: -webkit-linear-gradient(
           left,
           #000099,
@@ -195,8 +241,9 @@ export default {
 
     &-verify {
       .login-verify-btn {
-        width: 30%;
+        width: 36%;
         background: rgb(98, 194, 233);
+        border-radius: 5px;
 
         &:disabled {
           background-color: #eeeeee;
