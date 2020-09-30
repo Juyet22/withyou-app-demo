@@ -144,6 +144,7 @@ export default {
         flex-shrink: 0;
         padding: 20px;
         cursor: pointer;
+        white-space: nowrap;
         -webkit-tap-highlight-color: transparent;
 
         &:first-child {

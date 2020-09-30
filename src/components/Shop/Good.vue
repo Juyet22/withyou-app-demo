@@ -58,22 +58,32 @@
 
         <div class="good-detail">
           <ul class="good-detail-tab">
-            <li>
-              <span class="nav-underline"></span>
-              商品介绍
+            <li v-for="(nav,index) in goodDetailNav"
+                :key="index"
+                @click="navTabChange(index)">
+              <div class="nav-underline"
+                   v-if="index == 0"
+                   :style={left:lineMove}></div>
+              {{nav}}
             </li>
-            <li>规格参数</li>
-            <li>售后规范</li>
           </ul>
           <div class="good-detail-content">
-
+            <div v-if="detailTabIndex == 0">
+              1
+            </div>
+            <div v-else-if="detailTabIndex == 1">
+              2
+            </div>
+            <div v-else-if="detailTabIndex == 2">
+              3
+            </div>
           </div>
         </div>
 
       </div>
 
       <div class="good-purchase">
-
+        <button></button>
       </div>
     </div>
 
@@ -102,7 +112,10 @@ export default {
         '商品介绍',
         '规格参数',
         '售后规范',
-      ]
+      ],
+      lineMove: 0,
+      detailTabIndex: 0,
+      orderList: []
     }
   },
   components: {
@@ -114,6 +127,10 @@ export default {
       if (this.goodImageIndex < -1) this.goodImageIndex = -1;
       if (this.goodImageIndex > 0) this.goodImageIndex = 0;
       this.goodImageStyle['transform'] = `translateX(${this.goodImageIndex * 100}%)`
+    },
+    navTabChange (index) {
+      this.lineMove = index * 100 + '%';
+      this.detailTabIndex = index;
     }
   },
   computed: {
@@ -211,6 +228,8 @@ export default {
         &-saleinfo {
           display: flex;
           margin-top: 10px;
+          align-items: center;
+          line-height: 1.4em;
 
           .good-dscrp-price {
             color: #e95426;
@@ -218,7 +237,6 @@ export default {
           }
           .good-dscrp-saleway {
             margin-left: 8px;
-            align-self: center;
           }
         }
       }
